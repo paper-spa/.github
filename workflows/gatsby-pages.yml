@@ -2,6 +2,12 @@ name: Deploy Gatsby to GitHub Pages
 
 on:
   workflow_call:
+    inputs:
+      node-version:
+        type: string
+        description: "Version of Node.js to use.  Defaults to 16"
+        required: true
+        default: '16'
     
 
 env:
@@ -19,6 +25,8 @@ jobs:
     - uses: actions/checkout@v2
     
     - uses: paper-spa/gatsby-pages-build@main
+      with:
+        node-version: ${{ inputs.node-version }}
 
     - name: Upload Pages artifact
       uses: paper-spa/upload-pages-artifact@main

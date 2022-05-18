@@ -19,36 +19,8 @@ permissions:
   pages: write
   id-token: write
 
-env:
-  PREFIX_PATHS: true gatsby build
-  NODE_ENV: production
-  
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This build job takes care of preparing the artifact that we'll deploy to Pages
-  build:
-
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v2
-    
-    - name: Build Gatsby site
-      uses: paper-spa/gatsby-pages-build@main
-
-    - name: Upload Pages artifact
-      uses: paper-spa/upload-pages-artifact@main
-      with:
-        directory: 'public'
-
-  # The deploy job tells Pages to deploy the artifact we created in "build"
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: paper-spa/deploy-pages@main
+  build-and-deploy:
+    uses: paper-psa/.github/workflows/gatsby-pages.yml@main
