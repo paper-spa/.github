@@ -6,7 +6,6 @@ on:
       node-version:
         type: string
         description: "Version of Node.js to use.  Defaults to 16"
-        required: true
         default: '16'
     
 
